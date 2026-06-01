@@ -1,0 +1,49 @@
+/* Opacidade do texto de exemplo (placeholder) nos inputs e textareas */
+::placeholder {
+  opacity: 0.45 !important;
+}
+
+::-webkit-input-placeholder {
+  opacity: 0.45 !important;
+}
+
+::-moz-placeholder {
+  opacity: 0.45 !important;
+}
+
+:-ms-input-placeholder {
+  opacity: 0.45 !important;
+}
+
+/* Botão de voltar sutil */
+.hover-opacity {
+  text-decoration: none !important;
+}
+.hover-opacity:hover {
+  opacity: 1 !important;
+  color: #6a1b9a !important;
+}
+
+/* Checkbox Circular na Gestão */
+.btn-circle-check {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #6a1b9a !important;
+  color: #6a1b9a !important;
+  background-color: transparent;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn-check:checked + .btn-circle-check {
+  background-color: #6a1b9a !important;
+  color: #ffffff !important;
+}
+.btn-check:hover + .btn-circle-check {
+  background-color: #f3e5f5;
+}

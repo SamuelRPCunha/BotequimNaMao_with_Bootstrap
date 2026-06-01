@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Botequim na Mão - Gestão</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+
+<body id="page-gestao" class="bg-light">
+
+  <!-- HEADER -->
+  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+    <div class="container">
+      <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 text-decoration-none">
+        <img src="/images/geral/header/logo_botequim_na_mao_1.png" alt="Logo" width="50" class="rounded-circle">
+        <div class="d-none d-sm-block">
+          <h1 class="h5 mb-0 text-primary fw-bold" style="color: #6a1b9a !important;">Botequim na Mão</h1>
+          <p class="small text-danger fw-bold mb-0">Painel Administrativo</p>
+        </div>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <div class="nav d-flex flex-row flex-nowrap align-items-center justify-content-center gap-2 mt-3 mt-lg-0">
+          <!-- Os botões "Olá, Admin", "Gestão" e "Sair" serão injetados pelo main.js -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-4 py-md-5">
+    <h2 class="fw-bold mb-4" style="color: #6a1b9a;">Gestão do Estabelecimento</h2>
+
+    <!-- TABS -->
+    <ul class="nav nav-tabs mb-4" id="gestaoTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-bold px-4" id="tab-drinks" data-bs-toggle="tab"
+          data-bs-target="#tab-drinks-content" type="button" role="tab" aria-selected="true" style="color: #6a1b9a;">🍹
+          Drinks</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold px-4 text-muted" id="tab-orders" data-bs-toggle="tab"
+          data-bs-target="#tab-orders-content" type="button" role="tab" aria-selected="false">🧾 Pedidos</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold px-4 text-muted" id="tab-stock" data-bs-toggle="tab"
+          data-bs-target="#tab-stock-content" type="button" role="tab" aria-selected="false">📦 Estoque</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold px-4 text-muted" id="tab-config" data-bs-toggle="tab"
+          data-bs-target="#tab-config-content" type="button" role="tab" aria-selected="false">⚙️ Configurações</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="gestaoTabsContent">
+      <!-- ABA 0: PEDIDOS -->
+      <div class="tab-pane fade" id="tab-orders-content" role="tabpanel" aria-labelledby="tab-orders">
+        <div class="bg-white p-4 rounded-4 shadow-sm border">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+            <div>
+              <h3 class="h5 fw-bold mb-1" style="color: #6a1b9a;">Gestão de Pedidos</h3>
+              <p class="text-muted small mb-0">Gerencie os pedidos em tempo real enviados pelos clientes.</p>
+            </div>
+          </div>
+
+          <div id="orders-container" class="row g-4">
+            <!-- Renderizado via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 1: DRINKS -->
+      <div class="tab-pane fade show active" id="tab-drinks-content" role="tabpanel" aria-labelledby="tab-drinks">
+        <div class="bg-white p-4 rounded-4 shadow-sm border">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+            <div>
+              <h3 class="h5 fw-bold mb-1">Cardápio de Drinks</h3>
+              <p class="text-muted small mb-0">Gerencie as bebidas que aparecerão no site principal.</p>
+            </div>
+            <button class="btn btn-primary fw-bold" style="background-color: #6a1b9a; border-color: #6a1b9a;"
+              data-bs-toggle="modal" data-bs-target="#modal-add-drink">
+              + Adicionar Drink
+            </button>
+          </div>
+          <div id="drinks-list-container" class="d-flex flex-column gap-3">
+            <!-- Drinks injetados via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 2: ESTOQUE -->
+      <div class="tab-pane fade" id="tab-stock-content" role="tabpanel" aria-labelledby="tab-stock">
+        <div class="bg-white p-4 rounded-4 shadow-sm border">
+          <div class="mb-4">
+            <h3 class="h5 fw-bold mb-1">Disponibilidade de Ingredientes</h3>
+            <p class="text-muted small mb-0">Desative os ingredientes em falta. O sistema filtrará automaticamente as
+              bebidas impossíveis de preparar.</p>
+          </div>
+          <div id="stock-container" class="d-flex flex-column gap-2">
+            <!-- Ingredientes injetados via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 3: CONFIGURAÇÕES -->
+      <div class="tab-pane fade" id="tab-config-content" role="tabpanel" aria-labelledby="tab-config">
+        <div class="row g-4">
+          <!-- Status Geral -->
+          <div class="col-12 col-lg-6">
+            <div class="p-4 bg-white rounded-4 shadow-sm border h-100">
+              <h3 class="h5 fw-bold mb-1" style="color: #6a1b9a;">Trava de Emergência</h3>
+              <p class="text-muted small mb-4">Força o fechamento imediato do Botequim (ignora horários).</p>
+
+              <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 border">
+                <div>
+                  <span class="fw-bold fs-5 text-dark" id="label-status-bar">Funcionamento Automático</span>
+                  <div class="small text-muted" id="desc-status-bar">O sistema abre e fecha de acordo com a tabela.
+                  </div>
+                </div>
+                <div class="form-check form-switch fs-2 mb-0">
+                  <input class="form-check-input shadow-none" type="checkbox" role="switch" id="switch-status-bar"
+                    checked style="cursor: pointer; border-color: #6a1b9a;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horários de Funcionamento -->
+          <div class="col-12 col-lg-6">
+            <div class="p-4 bg-white rounded-4 shadow-sm border h-100">
+              <h3 class="h5 fw-bold mb-1" style="color: #6a1b9a;">Horários de Funcionamento</h3>
+              <p class="text-muted small mb-4">Defina os horários de atendimento do local.</p>
+
+              <form id="form-business-hours">
+                <div class="mb-3">
+                  <label class="form-label text-muted small fw-bold mb-2">Dias de Funcionamento (Automação)</label>
+                  <div class="d-flex flex-wrap gap-3 mb-4 mt-1" id="input-days-checkboxes">
+                    <div><input class="btn-check" type="checkbox" id="day-0" value="0" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-0">Dom</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-1" value="1" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-1">Seg</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-2" value="2" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-2">Ter</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-3" value="3" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-3">Qua</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-4" value="4" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-4">Qui</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-5" value="5" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-5">Sex</label></div>
+                    <div><input class="btn-check" type="checkbox" id="day-6" value="6" autocomplete="off"><label
+                        class="btn-circle-check shadow-sm" for="day-6">Sáb</label></div>
+                  </div>
+                  <label class="form-label text-muted small fw-bold mb-1">Como vai aparecer no site para o
+                    cliente?</label>
+                  <input type="text" id="input-days" class="form-control" placeholder="Ex: Terça a Domingo" required>
+                </div>
+                <div class="row g-3 mb-4">
+                  <div class="col-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Abertura</label>
+                    <input type="time" id="input-time-open" class="form-control" required>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Fechamento</label>
+                    <input type="time" id="input-time-close" class="form-control" required>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 fw-bold"
+                  style="background-color: #6a1b9a; border-color: #6a1b9a;">Salvar Configurações</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL ADD DRINK -->
+  <div class="modal fade" id="modal-add-drink" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h5 class="modal-title fw-bold" style="color: #6a1b9a;">Adicionar Novo Drink</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="form-add-drink">
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted">Nome do Drink</label>
+              <input type="text" id="new-name" class="form-control" required placeholder="Ex: Caipirinha de Limão">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted">Descrição</label>
+              <textarea id="new-desc" class="form-control" rows="2" required
+                placeholder="Descrição saborosa do drink..."></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted">Ingredientes (separados por vírgula)</label>
+              <input type="text" id="new-ingredients" class="form-control" required
+                placeholder="Limão, Cachaça, Açúcar, Gelo">
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-muted">Imagem do Drink</label>
+              <input type="file" id="new-image" class="form-control" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold py-2"
+              style="background-color: #6a1b9a; border-color: #6a1b9a;">
+              Salvar Drink no Sistema
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST FEEDBACK -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="admin-toast" class="toast align-items-center text-white bg-success border-0" role="alert"
+      aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fw-bold" id="admin-toast-msg">
+          Sucesso!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./main.js" defer></script>
+  <!-- SCRIPT PARA ESTILO DAS ABAS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('#gestaoTabs .nav-link');
+      tabs.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', (e) => {
+          tabs.forEach(t => {
+            t.style.color = '';
+            t.classList.add('text-muted');
+          });
+          e.target.style.color = '#6a1b9a';
+          e.target.classList.remove('text-muted');
+        });
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
