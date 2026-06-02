@@ -59,7 +59,7 @@ async function fetchRecipes() {
     return JSON.parse(localData);
   }
 
-  const res = await fetch('/data/recipes.json');
+  const res = await fetch('./data/recipes.json');
   const data = await res.json();
   localStorage.setItem('botequim_recipes', JSON.stringify(data));
   return data;
@@ -328,7 +328,7 @@ async function initGestao() {
         const ingredientsStr = document.getElementById('new-ingredients').value;
         const imageInput = document.getElementById('new-image');
 
-        let imageSrc = '/images/geral/header/logo_botequim_na_mao_1.png';
+        let imageSrc = './images/geral/header/logo_botequim_na_mao_1.png';
 
         if (imageInput && imageInput.files && imageInput.files[0]) {
           const file = imageInput.files[0];
