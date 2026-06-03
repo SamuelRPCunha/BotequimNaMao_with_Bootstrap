@@ -9,6 +9,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
+  initAccessibility();
 
   const displayHomeHours = document.getElementById('display-home-hours');
   if (displayHomeHours) {
@@ -75,6 +76,12 @@ function initHeader() {
   
   if (navContainer && session) {
     navContainer.innerHTML = `
+      <!-- Acessibilidade -->
+      <button class="btn btn-link text-secondary p-1 text-decoration-none fw-bold fs-5 btn-increase-font" title="Tamanho da Fonte" aria-label="Tamanho da Fonte">Aa</button>
+      <button class="btn btn-link text-secondary p-1 btn-toggle-theme" title="Alternar Tema Escuro" aria-label="Alternar Tema">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+
       <span class="text-muted fw-bold text-nowrap flex-shrink-0 d-none d-md-block">Olá, ${session.name.split(' ')[0]}</span>
       ${session.role === 'admin' ? '<a href="gestao.html" class="btn btn-outline-secondary fw-bold flex-shrink-0 ms-2">Gestão</a>' : ''}
       <button id="btn-logout" class="btn btn-outline-danger fw-bold flex-shrink-0 ms-2">Sair</button>
@@ -962,5 +969,35 @@ function initCarrinho() {
     
     const floating = document.getElementById('floating-cart');
     if (floating) floating.remove();
+  });
+}
+
+/* ================= ACCESSIBILITY LOGIC ================= */
+function initAccessibility() {
+  const isDark = localStorage.getItem('botequim_theme') === 'dark';
+  if (isDark) document.body.classList.add('dark-theme');
+
+  let fontSize = parseInt(localStorage.getItem('botequim_fontSize')) || 100;
+  document.documentElement.style.fontSize = fontSize + '%';
+
+  const btnTheme = document.querySelectorAll('.btn-toggle-theme');
+  const btnFont = document.querySelectorAll('.btn-increase-font');
+
+  btnTheme.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentIsDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('botequim_theme', currentIsDark ? 'dark' : 'light');
+    });
+  });
+
+  btnFont.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      fontSize += 10;
+      if (fontSize > 120) fontSize = 100;
+      document.documentElement.style.fontSize = fontSize + '%';
+      localStorage.setItem('botequim_fontSize', fontSize);
+    });
   });
 }
